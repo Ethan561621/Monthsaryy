@@ -89,6 +89,20 @@
         opacity: 0;
       }
     }
+
+    #tapPrompt {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.2);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-family: sans-serif;
+      font-size: 14px;
+      z-index: 999;
+    }
   </style>
 </head>
 <body>
@@ -104,22 +118,28 @@
     <div class="glow">I love you</div>
   </div>
 
+  <div id="tapPrompt">Tap anywhere to play the music</div>
+
   <audio id="bg-music" autoplay loop>
     <source src="song.mp3" type="audio/mpeg" />
   </audio>
 
   <script>
-    // Trigger music on first user interaction
-    document.addEventListener('click', () => {
-      const audio = document.getElementById('bg-music');
-      if (audio && audio.paused) {
-        audio.play().catch(() => {
-          console.log("Autoplay blocked");
-        });
-      }
-    });
+    const audio = document.getElementById('bg-music');
 
-    // Generate floating hearts
+    function startMusic() {
+      audio.play().then(() => {
+        console.log("Music playing");
+        const prompt = document.getElementById('tapPrompt');
+        if (prompt) prompt.style.display = 'none';
+      }).catch((err) => {
+        console.log("Music failed to play:", err);
+      });
+      document.removeEventListener('click', startMusic);
+    }
+
+    document.addEventListener('click', startMusic);
+
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
