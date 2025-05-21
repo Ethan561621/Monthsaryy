@@ -4,118 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy 2nd Monthsary</title>
-
-  <!-- Romantic Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&display=swap" rel="stylesheet">
-
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
     body {
       margin: 0;
       padding: 0;
-      background: black;
-      color: white;
-      font-family: 'Dancing Script', cursive;
-      text-align: center;
       overflow: hidden;
+      background-color: #000;
+      font-family: 'Great Vibes', cursive;
+      color: #fff;
     }
 
-    #message {
+    .message {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 2em;
       padding: 20px;
-      max-width: 90%;
-      font-size: 1.5rem;
-      line-height: 1.8;
+      z-index: 10;
+      animation: fadeIn 2s ease-in-out;
     }
 
-    #glow {
-      font-family: 'Great Vibes', cursive;
-      font-size: 3rem;
-      color: white;
-      animation: glow 2s infinite alternate;
-      display: none;
-      margin-top: 30px;
+    .glow {
+      font-size: 2.5em;
+      color: #ff4da6;
+      text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff4da6, 0 0 30px #ff4da6;
+      margin-top: 20px;
+      animation: pulse 2s infinite;
     }
 
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px red, 0 0 20px pink;
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px #ff4da6, 0 0 20px #ff4da6;
       }
-      to {
-        text-shadow: 0 0 20px hotpink, 0 0 30px red;
+      50% {
+        text-shadow: 0 0 30px #ff4da6, 0 0 40px #ff4da6;
       }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .heart {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 15px;
+      height: 15px;
       background: red;
       transform: rotate(45deg);
-      animation: float 5s linear infinite;
+      animation: float 6s linear infinite;
     }
 
-    .heart::before,
-    .heart::after {
+    .heart:before,
+    .heart:after {
       content: '';
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 15px;
+      height: 15px;
       background: red;
       border-radius: 50%;
     }
 
-    .heart::before {
-      top: -5px;
+    .heart:before {
+      top: -7.5px;
       left: 0;
     }
 
-    .heart::after {
-      left: -5px;
+    .heart:after {
+      left: -7.5px;
       top: 0;
     }
 
     @keyframes float {
-      to {
-        transform: translateY(-100vh) rotate(360deg);
+      0% {
+        transform: translateY(100vh) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) rotate(45deg);
         opacity: 0;
       }
     }
   </style>
 </head>
 <body>
-  <audio id="bg-music" autoplay loop>
-    <source src="song.mp3" type="audio/mpeg" />
-    Your browser does not support the audio tag.
-  </audio>
 
-  <div id="message">
-    Baby happy 2nd monthsary I know we are still at the start but I am already so thankful for everything your time your love your patience and your presence I appreciate you more than I can ever say I hope we continue to grow together I hope we share many more days like this and more memories full of laughter love and peace Thank you for being mine I will always care for you cherish you and stay by your side
-    <div id="glow">I love you</div>
+  <div class="message">
+    Baby happy 2nd monthsary  
+    Thank you for staying with me  
+    Thank you for loving me and making me feel special  
+    I promise to stay with you always and continue loving you  
+    You are my comfort my joy and my peace  
+    I’m so grateful to have you in my life  
+    I love you more every day  
+    <div class="glow">I love you</div>
   </div>
 
+  <audio id="bg-music" autoplay loop>
+    <source src="song.mp3" type="audio/mpeg" />
+  </audio>
+
   <script>
-    const glow = document.getElementById('glow');
+    // Trigger music on first user interaction
+    document.addEventListener('click', () => {
+      const audio = document.getElementById('bg-music');
+      if (audio && audio.paused) {
+        audio.play().catch(() => {
+          console.log("Autoplay blocked");
+        });
+      }
+    });
 
-    // Show glowing text after 10 seconds
-    setTimeout(() => {
-      glow.style.display = 'block';
-    }, 10000);
-
-    // Create floating hearts
+    // Generate floating hearts
     function createHeart() {
       const heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.top = '100vh';
-      heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
       document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 5000);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
     }
 
     setInterval(createHeart, 300);
   </script>
+
 </body>
 </html>
